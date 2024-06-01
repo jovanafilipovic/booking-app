@@ -1,10 +1,14 @@
-import React from 'react'
-import { DatePicker } from 'rsuite';
+import React from "react";
+import { DatePicker } from "rsuite";
 
 export const DateDropdown = () => {
   return (
     <>
-        <DatePicker appearance="default" placeholder="Datum" style={{ width: 200 }} />
+      <DatePicker
+        appearance="default"
+        placeholder="Datum"
+        style={{ width: 200 }}
+      />
     </>
-  )
-}
+  );
+};
