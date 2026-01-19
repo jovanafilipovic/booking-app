@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/93d1856b-68c4-4e09-a766-aa9bad7a6448
 
 A web application for booking sports facilities across Belgrade. Users can browse available facilities, make reservations, and manage their bookings.
 
-The frontend is built with **React and TypeScript**. The backend uses **Node.js** and **Express** to handle API requests and business logic, while **MongoDB** serves as the database for storing user data, facility information, and bookings.
+The frontend is built with **React and TypeScript**. For UI components is used **React Suite** library. The backend uses **Node.js** and **Express** to handle API requests and business logic, while **MongoDB** serves as the database for storing user data, facility information, and bookings.
 
 The application is tested with **Jest unit tests**.
 
