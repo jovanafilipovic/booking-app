@@ -1,4 +1,3 @@
-import React from "react";
 import { DatePicker } from "rsuite";
 
 export const DateDropdown = () => {

@@ -1,4 +1,3 @@
-import React from "react";
 import { Panel } from "rsuite";
 import { Button } from "rsuite";
 import "../styles.css";

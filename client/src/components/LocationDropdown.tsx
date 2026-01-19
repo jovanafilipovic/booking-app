@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown } from "rsuite";
+import { Location } from "../types";
 
-interface Location {
-  _id: string;
-  name: string;
+interface LocationDropdownProps {
+  setLocation: (location: string) => void;
 }
-export const LocationDropdown = () => {
+
+export const LocationDropdown = ({ setLocation }: LocationDropdownProps) => {
   const [locations, setLocations] = useState<Location[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<string>("Lokacija");
 
@@ -23,8 +24,9 @@ export const LocationDropdown = () => {
     fetchLocations();
   }, []);
 
-  const handleLocationSelection = (location: string) => {
+  const handleLocationSelection = (locationId: string, location: string) => {
     setSelectedLocation(location);
+    setLocation(locationId);
   };
 
   return (
@@ -34,7 +36,7 @@ export const LocationDropdown = () => {
           key={location._id}
           onClick={(event) => {
             event.preventDefault();
-            handleLocationSelection(location.name);
+            handleLocationSelection(location._id, location.name);
           }}
         >
           {location.name}

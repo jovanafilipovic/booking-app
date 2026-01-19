@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown } from "rsuite";
+import { Sport } from "../types";
 
-interface Sport {
-  _id: string;
-  name: string;
+interface SportDropdownProps {
+  setSelectedSport: (sport: string) => void;
 }
-export const SportDropdown = () => {
+
+export const SportDropdown = ({ setSelectedSport }: SportDropdownProps) => {
   const [sports, setSports] = useState<Sport[]>([]);
-  const [selectedSport, setSelectedSport] = useState<string>("Sport");
+  const [selectedSport, setLocalSelectedSport] = useState<string>("Sport");
 
   useEffect(() => {
     const fetchSports = async () => {
@@ -24,8 +25,9 @@ export const SportDropdown = () => {
     fetchSports();
   }, []);
 
-  const handleSportSelection = (sport: string) => {
-    setSelectedSport(sport);
+  const handleSportSelection = (sportId: string, sport: string) => {
+    setLocalSelectedSport(sport);
+    setSelectedSport(sportId);
   };
 
   return (
@@ -35,7 +37,7 @@ export const SportDropdown = () => {
           key={sport._id}
           onClick={(event) => {
             event.preventDefault();
-            handleSportSelection(sport.name);
+            handleSportSelection(sport._id, sport.name);
           }}
         >
           {sport.name}

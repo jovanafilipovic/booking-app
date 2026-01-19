@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Form, ButtonToolbar, Button, Notification } from "rsuite";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles.css";
 import "../forms.css";
-import { useNavigate } from "react-router-dom";
 
-export const SignUp = () => {
-  const [error, setError] = useState(null);
+export const LoginForm = () => {
   const [formValues, setFormValues] = useState({
     username: "",
-    email: "",
     password: "",
   });
-
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (value, event) => {
@@ -23,7 +21,7 @@ export const SignUp = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:3002/api/signup", {
+      const response = await fetch("http://localhost:3002/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,13 +29,18 @@ export const SignUp = () => {
         body: JSON.stringify(formValues),
       });
       if (response.ok) {
-        navigate("/login");
+        const data = await response.json();
+
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        navigate("/"); // Redirect to homepage after successful login
       } else {
         const errorResponse = await response.json();
-        setError(errorResponse.error);
+        setError(errorResponse.error || "Login failed");
       }
     } catch (error) {
-      console.error("Failed to register user", error);
+      setError("Failed to log in");
     }
   };
 
@@ -46,13 +49,13 @@ export const SignUp = () => {
       {error && (
         <Notification
           closable
+          className="login-error-message"
           type="warning"
-          header="Korisnik već postoji"
-          className="registration-error-message"
+          header="Pogrešni kredencijali"
         />
       )}
       <Form layout="horizontal">
-        <Form.Group controlId="username">
+        <Form.Group controlId="name-6">
           <Form.ControlLabel>Korisničko ime</Form.ControlLabel>
           <Form.Control
             name="username"
@@ -61,31 +64,29 @@ export const SignUp = () => {
           />
           <Form.HelpText tooltip>Obavezno polje</Form.HelpText>
         </Form.Group>
-        <Form.Group controlId="email">
-          <Form.ControlLabel>Email</Form.ControlLabel>
-          <Form.Control
-            name="email"
-            type="email"
-            value={formValues.email}
-            onChange={handleChange}
-          />
-          <Form.HelpText tooltip>Obavezno polje</Form.HelpText>
-        </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password-6">
           <Form.ControlLabel>Lozinka</Form.ControlLabel>
           <Form.Control
             name="password"
             type="password"
+            autoComplete="off"
             value={formValues.password}
             onChange={handleChange}
-            autoComplete="off"
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.ControlLabel className="create-accout">
+            Nemate nalog? <Link to="/signup"> Registrujte se</Link>
+          </Form.ControlLabel>
         </Form.Group>
         <Form.Group>
           <ButtonToolbar>
             <Button appearance="primary" onClick={handleSubmit}>
-              Registruj se
+              Uloguj se
             </Button>
+            <Link to="/">
+              <Button appearance="default">Otkaži</Button>
+            </Link>
           </ButtonToolbar>
         </Form.Group>
       </Form>

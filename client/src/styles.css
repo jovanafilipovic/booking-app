@@ -1,3 +1,18 @@
 @import "rsuite/dist/rsuite.css";
+/* 
+#root {
+  padding: 10px;
+  background-color: #f0f8ff;
+  max-width: 1290px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: ;
+} */
 
-#root{ padding: 10px; }
+body {
+  padding: 10px;
+  background-color: #f0f8ff;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}

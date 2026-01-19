@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "./Card.tsx";
 import CourtPreview from "./CourtPreview.tsx";
-
-interface Court {
-  _id: string;
-  name: string;
-  images: string[];
-  price: string;
-  address: string;
-  sports: string[];
-  location: string;
-}
+import { Court } from "../types";
 
 interface CardListProps {
   selectedSport: string;
